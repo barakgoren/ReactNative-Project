@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Shift from '../models/Shift';
 
-export default function HomeScreen() {
+export default function HomeScreen({ addShift, removeShift }) {
     const myHourlyWage = 36.29;
 
     const [startTime, setStartTime] = useState(null);
@@ -33,12 +34,20 @@ export default function HomeScreen() {
     }, [startTime]);
 
     const startTimer = async () => {
+        if (startTime) {
+            return;
+        }
         const now = new Date();
         setStartTime(now);
         await AsyncStorage.setItem('startTime', now.toString());
     };
 
     const resetTimer = async () => {
+        if (!startTime) {
+            return;
+        }
+        const newShift = new Shift(startTime, new Date());
+        addShift(newShift);
         setStartTime(null);
         setCounter(0);
         setDailyWage(0.0);

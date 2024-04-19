@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { React, useState } from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,17 @@ import ShiftsScreen from './screens/ShiftsScreen';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [shifts, setShifts] = useState([]);
+
+  const addShift = (shift) => {
+    console.log('Adding shift:', shift);
+    setShifts([...shifts, shift]);
+  };
+
+  const removeShift = (shift) => {
+    setShifts(shifts.filter((s) => s !== shift));
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -33,8 +44,14 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="My Shifts" component={ShiftsScreen} />
+        <Tab.Screen
+          name="Home"
+          children={() => <HomeScreen addShift={addShift} removeShift={removeShift} />}
+        />
+        <Tab.Screen
+          name="My Shifts"
+          children={() => <ShiftsScreen shifts={shifts} />}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
