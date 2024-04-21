@@ -29,37 +29,46 @@ function ShiftModal({ addShift, modalVisible, setModalVisible }) {
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <View style={styles.modalInputContainer}>
-                        <Text>Select start date and time:</Text>
-                        <DateTimePicker
-                            value={startDate}
-                            mode={'datetime'}
-                            is24Hour={true}
-                            display="default"
-                            onChange={(event, selectedDate) => {
-                                if (selectedDate) {
-                                    setStartDate(selectedDate);
-                                }
-                            }}
-                        />
+                    <Text style={styles.modalText}>Create a new shift</Text>
+                    <View style={{margin:10}}>
+                        <View style={styles.modalInputContainer}>
+                            <Text>Started at:</Text>
+                            <DateTimePicker
+                                value={startDate}
+                                mode={'datetime'}
+                                is24Hour={true}
+                                display="default"
+                                onChange={(event, selectedDate) => {
+                                    if (selectedDate) {
+                                        setStartDate(selectedDate);
+                                    }
+                                }}
+                            />
+                        </View>
+                        <View style={styles.modalInputContainer}>
+                            <Text>Ended at:</Text>
+                            <DateTimePicker
+                                value={endDate}
+                                mode={'datetime'}
+                                is24Hour={true}
+                                display="clock"
+                                onChange={(event, selectedDate) => {
+                                    if (selectedDate) {
+                                        setEndDate(selectedDate);
+                                    }
+                                }}
+                            />
+                        </View>
                     </View>
-                    <Text>
-                        <Text>Select end date and time:</Text>
-                        <DateTimePicker
-                            value={endDate}
-                            mode={'datetime'}
-                            is24Hour={true}
-                            display="clock"
-                            onChange={(event, selectedDate) => {
-                                if (selectedDate) {
-                                    setEndDate(selectedDate);
-                                }
-                            }}
-                        />
-                    </Text>
-                    <View style={{ flexDirection: 'row', backgroundColor: 'red', justifyContent: 'space-between' }}>
-                        <Button title="Create Shift" onPress={createShift} />
-                        <Button title="Cancel" onPress={() => setModalVisible(false)} />
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flex: 1, flexDirection: 'row', borderEndEndRadius: 16, borderBottomLeftRadius: 16, justifyContent: 'space-around' }}>
+                            <Pressable style={{ ...styles.button, backgroundColor: 'red' }} onPress={() => setModalVisible(false)}>
+                                <Text style={styles.textStyle}>Cancel</Text>
+                            </Pressable>
+                            <Pressable style={styles.button} onPress={createShift}>
+                                <Text style={styles.textStyle}>Create Shift</Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -79,7 +88,6 @@ const styles = StyleSheet.create({
         borderColor: theme.colors.text,
         backgroundColor: theme.colors.lightGreen,
         borderRadius: 20,
-        padding: 25,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
@@ -90,21 +98,36 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-    },
     textStyle: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
     },
     modalInputContainer: {
+        paddingHorizontal: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 10,
+        marginVertical: 10,
+    },
+    modalText: {
+        marginTop: 10,
+        textAlign: 'center',
+        fontSize: 24,
+    },
+    button: {
+        borderRadius: 10,
+        margin: 5,
+        marginTop: 0,
+        padding: 10,
+        elevation: 2,
+        backgroundColor: theme.colors.text,
+        flex: 1,
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
 
