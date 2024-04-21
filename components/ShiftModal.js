@@ -29,32 +29,35 @@ function ShiftModal({ addShift, modalVisible, setModalVisible }) {
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text>Select start date and time:</Text>
-                    <DateTimePicker
-                        value={startDate}
-                        mode={'datetime'}
-                        is24Hour={true}
-                        display="default"
-                        onChange={(event, selectedDate) => {
-                            if (selectedDate) {
-                                setStartDate(selectedDate);
-                            }
-                        }}
-                    />
-
-                    <Text>Select end date and time:</Text>
-                    <DateTimePicker
-                        value={endDate}
-                        mode={'datetime'}
-                        is24Hour={true}
-                        display="clock"
-                        onChange={(event, selectedDate) => {
-                            if (selectedDate) {
-                                setEndDate(selectedDate);
-                            }
-                        }}
-                    />
-                    <View style={{flexDirection:'row'}}>
+                    <View style={styles.modalInputContainer}>
+                        <Text>Select start date and time:</Text>
+                        <DateTimePicker
+                            value={startDate}
+                            mode={'datetime'}
+                            is24Hour={true}
+                            display="default"
+                            onChange={(event, selectedDate) => {
+                                if (selectedDate) {
+                                    setStartDate(selectedDate);
+                                }
+                            }}
+                        />
+                    </View>
+                    <Text>
+                        <Text>Select end date and time:</Text>
+                        <DateTimePicker
+                            value={endDate}
+                            mode={'datetime'}
+                            is24Hour={true}
+                            display="clock"
+                            onChange={(event, selectedDate) => {
+                                if (selectedDate) {
+                                    setEndDate(selectedDate);
+                                }
+                            }}
+                        />
+                    </Text>
+                    <View style={{ flexDirection: 'row', backgroundColor: 'red', justifyContent: 'space-between' }}>
                         <Button title="Create Shift" onPress={createShift} />
                         <Button title="Cancel" onPress={() => setModalVisible(false)} />
                     </View>
@@ -69,7 +72,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 22,
     },
     modalView: {
         margin: 20,
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
         borderColor: theme.colors.text,
         backgroundColor: theme.colors.lightGreen,
         borderRadius: 20,
-        padding: 35,
+        padding: 25,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
@@ -97,6 +99,12 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    modalInputContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
     },
 });
 
